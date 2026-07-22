@@ -58,6 +58,9 @@ Dataset contains healthy and diseased leaf images collected from multiple public
 
 https://drive.google.com/drive/folders/1F5tLCDoLxGh6URbTsU5M_kzKtQ73LrlW
 
+### Model :
+
+https://drive.google.com/file/d/1MpX4dveMY_YTC7SSTNqdLJu1_alE1Z8X/view?usp=drivesdk
 ---
 
 # 🧠 Model Information
