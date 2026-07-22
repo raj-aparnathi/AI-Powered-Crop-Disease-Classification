@@ -1,12 +1,3 @@
-"""
-CropX - AI Crop Disease Classifier
-=====================================
-Streamlit application for crop disease classification
-using a MobileNetV3Large model trained on 56 crop-disease classes.
-
-Run:
-    streamlit run app.py
-"""
 
 import streamlit as st
 import numpy as np
@@ -16,9 +7,7 @@ import plotly.graph_objects as go
 from utils import load_model, preprocess_image, predict
 from class_names import CLASS_INFO
 
-# ──────────────────────────────────────────────────────────────
-# Page Configuration
-# ──────────────────────────────────────────────────────────────
+
 st.set_page_config(
     page_title="CropX — AI Crop Disease Classifier",
     page_icon="🌿",
@@ -27,18 +16,12 @@ st.set_page_config(
 )
 
 
-# ──────────────────────────────────────────────────────────────
-# Model Caching
-# ──────────────────────────────────────────────────────────────
 @st.cache_resource(show_spinner="Loading CropX model...")
 def get_model():
     """Load model once and cache in memory across reruns."""
     return load_model()
 
 
-# ──────────────────────────────────────────────────────────────
-# Probability Chart
-# ──────────────────────────────────────────────────────────────
 def build_probability_chart(result: dict) -> go.Figure:
     """Create a horizontal bar chart of the top-10 prediction probabilities."""
     probabilities = result["probabilities"]
@@ -76,25 +59,20 @@ def build_probability_chart(result: dict) -> go.Figure:
     return fig
 
 
-# ──────────────────────────────────────────────────────────────
-# Main Application
-# ──────────────────────────────────────────────────────────────
 def main():
-    """Main application entry point."""
-
-    # ── Header ──
+   
     st.title("🌿 CropX")
     st.caption("AI-Powered Crop Disease Classification — Upload a leaf image for instant diagnosis")
     st.divider()
 
-    # ── Load Model ──
+   
     try:
         model = get_model()
     except (FileNotFoundError, RuntimeError) as e:
         st.error(f"❌ Model Loading Error: {e}")
         st.stop()
 
-    # ── Upload Section ──
+   
     st.subheader("📤 Upload a Leaf Image")
     uploaded_file = st.file_uploader(
         "Choose a leaf image for disease classification",
@@ -109,7 +87,8 @@ def main():
             st.error("❌ Could not read the uploaded file. Please upload a valid image.")
             st.stop()
 
-        # ── Two-column layout: Image+Button (left) | Results (right) ──
+        
+Image+Button (left) | Results (right) ──
         col_left, col_right = st.columns(2)
 
         with col_left:
@@ -127,7 +106,7 @@ def main():
                     st.error(f"❌ Prediction failed: {e}")
                     st.stop()
 
-            # ── Show results in right column inside a box ──
+           
             with col_right:
                 st.subheader("📊 Diagnosis Results")
 
@@ -149,7 +128,7 @@ def main():
 
                 st.caption(f"⚡ Inference Time: {result['inference_time_ms']:.1f} ms")
 
-            # ── Probability Chart (full width below) ──
+         
             st.divider()
             fig = build_probability_chart(result)
             st.plotly_chart(fig, use_container_width=True)
