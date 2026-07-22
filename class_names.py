@@ -71,7 +71,6 @@ def parse_class_label(class_name: str) -> tuple[str, str]:
 
     
     if len(parts) >= 3:
-        # Format: Crop___SubCrop___Disease (e.g., Tomato___Tomato___Early_blight)
         disease_raw = parts[-1].strip()
     elif len(parts) == 2:
         disease_raw = parts[1].strip()
