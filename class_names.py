@@ -63,18 +63,7 @@ NUM_CLASSES = len(CLASS_NAMES)
 
 
 def parse_class_label(class_name: str) -> tuple[str, str]:
-    """
-    Parse a raw class label into (crop_name, disease_name).
-
-    Handles triple-underscore formats like 'Tomato___Tomato___Early_blight'
-    and double-underscore formats like 'Cotton___Aphids'.
-
-    Args:
-        class_name: Raw class label string from the model.
-
-    Returns:
-        Tuple of (crop_name, disease_name) with cleaned formatting.
-    """
+    
     parts = class_name.split("___")
 
     
