@@ -1,13 +1,4 @@
-"""
-CropX - Class Name Definitions
-================================
-56 crop disease classes extracted from the training dataset.
-Ordered alphabetically to match tf.keras.utils.image_dataset_from_directory.
 
-Each class maps to a (Crop Name, Disease Name) tuple for structured display.
-"""
-
-# Ordered class labels matching the model's output indices
 CLASS_NAMES = [
     "Cotton___Aphids",
     "Cotton___Army_worm",
@@ -86,10 +77,10 @@ def parse_class_label(class_name: str) -> tuple[str, str]:
     """
     parts = class_name.split("___")
 
-    # Extract crop name (always the first part)
+    
     crop = parts[0].strip()
 
-    # Extract disease name (last meaningful part)
+    
     if len(parts) >= 3:
         # Format: Crop___SubCrop___Disease (e.g., Tomato___Tomato___Early_blight)
         disease_raw = parts[-1].strip()
@@ -98,15 +89,14 @@ def parse_class_label(class_name: str) -> tuple[str, str]:
     else:
         disease_raw = "Unknown"
 
-    # Clean up underscores and formatting
+    
     disease = disease_raw.replace("_", " ").strip()
 
-    # Handle "healthy" variants consistently
+    
     if disease.lower() in ("healthy", "healthy leaves", "healthy leaf"):
         disease = "Healthy"
 
     return crop, disease
 
 
-# Precomputed mapping: index -> (crop, disease)
 CLASS_INFO = {i: parse_class_label(name) for i, name in enumerate(CLASS_NAMES)}
